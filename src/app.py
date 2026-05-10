@@ -22,7 +22,7 @@ st.set_page_config(
 # Section 2
 @st.cache_data
 def load_data():
-    df = pd.read_csv('../data/fraud_clean.csv')
+    df = pd.read_csv('data/fraud_sample.csv') #for Streamlit Cloud
     return df
 @st.cache_resource
 def build_model(df):
