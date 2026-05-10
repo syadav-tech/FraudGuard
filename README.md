@@ -94,6 +94,7 @@ explicitly rather than hiding it behind a single accuracy metric.
 ---
 
 ## Project Structure
+```
 fraud-detection/
 ├── data/
 │   └── [charts and processed outputs]
@@ -105,6 +106,7 @@ fraud-detection/
 │   ├── app.py
 │   └── requirements.txt
 └── README.md
+```
 ---
 
 ## PACE Framework
