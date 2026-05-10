@@ -119,10 +119,17 @@ fraud-detection/
 
 ## Running the Dashboard
 
+**Live:** [FraudGuard — Streamlit App](https://fraudguard-cbsatymzduhsdugbazz54h.streamlit.app/)
+
+**Locally (full dataset):**
 ```bash
 cd src
 streamlit run app.py
 ```
+
+> Local run uses the full 590,540 transaction dataset.  
+> First load takes 3-5 minutes (model training + SMOTE).  
+> Subsequent page navigation is instant via caching.
 
 Note: Model rebuilds on first load (~3-5 minutes).
 Subsequent page navigation is instant via caching.
