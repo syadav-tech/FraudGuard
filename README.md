@@ -131,7 +131,7 @@ Subsequent page navigation is instant via caching.
 
 ## Live Dashboard
 
-🔗 [FraudGuard - Live App](your-streamlit-url-here)
+🔗 [FraudGuard - Live App](https://fraudguard-cbsatymzduhsdugbazz54h.streamlit.app/)
 
 ---
 
