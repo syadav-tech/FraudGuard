@@ -245,105 +245,34 @@ elif page == "Fraud Pattern Analysis":
 
 # PAGE 3: TRANSACTION SCORER ───────────────────────────────
 elif page == "Transaction Scorer":
+
     st.title("🔍 Transaction Scorer")
-    st.markdown("Enter transaction details to get an instant "
-                " fraud probability score.")
-    st.markdown("---")
-    st.markdown("### Transaction Details")
-    st.caption("input fields reflect the model's strongest "
-               "predictive features.")
-    col1, col2 = st.columns(2)
-
-    with col1:
-        trans_amt = st.number_input("Transaction Amount($)", min_value = 100.0, step = 10.0)
-        product_cd = st.selectbox("Product Code", options = [0,1,2,3,4], format_func = lambda x:{
-            0:'C - CNP Credit',
-            1:'H - Hosted', 
-            2:'R - Recurring',
-            3:'S - Store',
-            4:'W - Web'}[x])
-        card_type = st.selectbox("Card Type", options = [0,1,2,3], format_func = lambda x:{
-            0:'Charge Card', 1:'Credit', 2:'Debit', 3:'Debit or Credit'}[x])
-        tx_hour = st.slider("Hour of transaction (0-23)", min_value = 0, max_value = 23, value = 12)
-        is_night = st.selectbox("Hour Transaction (11pm-6am)?", options = [0,1], format_func = lambda x:
-                                'Yes' if x == 1 else 'No')
-    
-    with col2:
-        card_tx_count = st.number_input("Total Card Transactions (card activity)",
-                                        min_value = 1, max_value = 10000, value = 500)
-        card_mean_amt = st.number_input("Card Mean Transaction Amount ($)", min_value = 1.0, max_value = 1000.0,
-                                        value = 100.0, step = 10.0)
-        is_weekend = st.selectbox("Weekend Transaction?", options = [0,1], format_func = lambda x:
-                                  'Yes' if x == 1 else 'No')
-        tx_day = st.slider("Day of Week (0=Mon, 6=Sun)", min_value = 0, max_value = 6, value = 2)
-        tx_day_elapsed = st.number_input("Day in Dataset (1-182)", min_value = 1, max_value = 182, value = 90)
-
+    st.markdown("Live fraud probability scoring for "
+                "individual transactions.")
     st.markdown("---")
 
-    if st.button("🔍 Score Transaction", type="primary"):
+    st.info(
+        "⚠️ Full transaction scoring requires local setup "
+        "with the complete IEEE-CIS dataset from Kaggle. "
+        "See the README for setup instructions."
+    )
 
-        # Calculate derived features
-        amt_deviation = (trans_amt - card_mean_amt)/(card_mean_amt + 1)
-        amt_ratio = trans_amt/(card_mean_amt + 1)
+    st.markdown("### What this tool does locally")
+    st.markdown(
+        """
+        - Input transaction details (amount, product type, 
+          card type, time, card history)
+        - XGBoost model returns fraud probability (0-100%)
+        - Risk tier assigned: Low Risk / Suspicious / High Risk
+        - Recommended action for Fraud Operations team
+        """
+    )
 
-        # Build input with all 60 features
-        input_data = pd.DataFrame([np.zeros(len(feature_cols))], columns = feature_cols)
-
-        # Set known input values
-        input_data['TransactionAmt'] = trans_amt
-        input_data['ProductCD'] = product_cd
-        input_data['card6'] = card_type
-        input_data['tx_hour'] = tx_hour
-        input_data['is_night'] = is_night
-        input_data['is_weekend'] = is_weekend
-        input_data['tx_day'] = tx_day
-        input_data['tx_day_elapsed'] = tx_day_elapsed
-        input_data['card_tx_count'] = card_tx_count
-        input_data['card_mean_amt'] = card_mean_amt
-        input_data['amt_deviation'] = amt_deviation
-        input_data['amt_ratio'] = amt_ratio
-
-        # Score
-        fraud_prob = model.predict_proba(input_data)[0][1]
-
-        # Risk Tier
-        if fraud_prob >= 0.5:
-            tier = "🔴 High Risk"
-            colour = "red"
-            action = "Block and escalate to Fraud Operations"
-        elif fraud_prob >= 0.143:
-            tier = "🟡 Suspicious"
-            colour = "orange"
-            action = "Flag for manual review"
-        else:
-            tier = "🟢 Low Risk"
-            colour = "green"
-            action = "Approve — monitor for pattern changes"
-
-        # Display Results
-        st.markdown("### Scoring Result")
-        res1,res2,res3 = st.columns(3)
-        res1.metric("Fraud Probability", f"{fraud_prob*100:.1f}%")
-        res2.metric("Risk Tier", tier)
-        res3.metric("Amt vs Card baseline", f"{amt_deviation*100:+.1f}%")
-
-        st.markdown(f"**Recommended Action:** {action}")
-
-        # Gauge
-        fig_gauge = go.Figure(go.Indicator(mode = "gauge + number", value = fraud_prob * 100, 
-                                           title = {'text':"Fraud probability (%)"}, 
-                                           gauge = {'axis': {'range':[0,100]},
-                                                    'bar': {'color': colour},
-                                                    'steps': [
-                                                        {'range': [0,14.3],
-                                                         'color': 'rgba(46,204,113,0.3)'},
-                                                        {'range': [14.3,50],
-                                                         'color': 'rgba(243,156,18,0.3)'},
-                                                        {'range': [50,100],
-                                                         'color': 'rgba(231,76,60,0.3)'} 
-                                                    ]  
-                                                }
-                                            )
-        )
-        fig_gauge.update_layout(height = 300)
-        st.plotly_chart(fig_gauge, use_container_width = True)
+    st.markdown("### Setup instructions")
+    st.code(
+        "1. Download IEEE-CIS dataset from Kaggle\n"
+        "2. Place CSV files in data/ folder\n"
+        "3. Run notebooks/02_features.ipynb\n"
+        "4. cd src && streamlit run app.py",
+        language="bash"
+    )

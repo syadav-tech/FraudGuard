@@ -119,36 +119,31 @@ fraud-detection/
 
 ---
 
-## Running the Dashboard
-
-**Live:** [FraudGuard — Streamlit App](https://fraudguard-cbsatymzduhsdugbazz54h.streamlit.app/)
-
-**Locally (full dataset):**
-```bash
-cd src
-streamlit run app.py
-```
-
-> Local run uses the full 590,540 transaction dataset.  
-> First load takes 3-5 minutes (model training + SMOTE).  
-> Subsequent page navigation is instant via caching.
-
-Note: Model rebuilds on first load (~3-5 minutes).
-Subsequent page navigation is instant via caching.
-
----
-
 ## Live Dashboard
 
 🔗 [FraudGuard - Live App](https://fraudguard-cbsatymzduhsdugbazz54h.streamlit.app/)
 
-> **Note:** The live app uses a 50,000 transaction sample 
-> (from 590,540 total) due to GitHub's 100MB file size limit. 
-> Model metrics on the sample: ROC-AUC 0.878, Avg Precision 0.430. 
-> Full dataset metrics: ROC-AUC 0.896, Avg Precision 0.497. 
-> To reproduce full results, clone the repo and run the 
-> feature engineering notebook locally with the complete 
-> IEEE-CIS dataset from Kaggle.
+> **Deployment note:** The live app displays static EDA charts
+> and portfolio-level fraud metrics. The Transaction Scorer
+> requires local setup with the full IEEE-CIS dataset from Kaggle
+> (see Running the Dashboard below).
+> Raw competition data is not redistributed per Kaggle usage policy.
+
+## Running the Dashboard Locally (Full Model)
+
+1. Download the IEEE-CIS Fraud Detection dataset from Kaggle
+2. Place `train_transaction.csv` and `train_identity.csv`
+   in the `data/` folder
+3. Run the feature engineering notebook:
+   `notebooks/02_features.ipynb`
+4. Launch the dashboard:
+
+​```bash
+cd src
+streamlit run app.py
+​```
+> First load takes 3-5 minutes (model training + SMOTE).
+> Subsequent navigation is instant via caching.
 ---
 
 ## Data
