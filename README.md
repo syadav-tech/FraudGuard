@@ -133,6 +133,13 @@ Subsequent page navigation is instant via caching.
 
 🔗 [FraudGuard - Live App](https://fraudguard-cbsatymzduhsdugbazz54h.streamlit.app/)
 
+> **Note:** The live app uses a 50,000 transaction sample 
+> (from 590,540 total) due to GitHub's 100MB file size limit. 
+> Model metrics on the sample: ROC-AUC 0.878, Avg Precision 0.430. 
+> Full dataset metrics: ROC-AUC 0.896, Avg Precision 0.497. 
+> To reproduce full results, clone the repo and run the 
+> feature engineering notebook locally with the complete 
+> IEEE-CIS dataset from Kaggle.
 ---
 
 ## Data
