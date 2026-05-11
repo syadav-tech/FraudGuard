@@ -6,3 +6,7 @@ __pycache__/
 .ipynb_checkpoints/ 
 .vscode/ 
 data/fraud_sample.csv 
+data/submission.csv 
+data/test_transaction.csv 
+data/test_identity.csv 
+data/sample_submission.csv 
