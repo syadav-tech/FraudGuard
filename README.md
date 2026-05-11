@@ -64,6 +64,7 @@ investigations and protect both revenue and customer relationships.
    fraudster digital footprint gaps
 5. **SHAP surprise** - anonymised count features (C5, C14, C1)
    outperform transaction amount and card type
+6. **Kaggle Submission:** Private leaderboard AUC 0.5056 (local     time-based validation: ROC-AUC 0.896)
 
 ---
 
