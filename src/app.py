@@ -22,8 +22,27 @@ st.set_page_config(
 # Section 2
 @st.cache_data
 def load_data():
-    df = pd.read_csv('data/fraud_sample.csv') #for Streamlit Cloud
-    return df
+    try:
+        df = pd.read_csv('data/fraud_sample.csv')
+        return df
+    except FileNotFoundError:
+        return None
+
+df = load_data() 
+
+if df is None:
+    st.title("🛡️ FraudGuard")
+    st.warning(
+        "**Live scoring unavailable on this deployment.**\n\n"
+        "The full dataset cannot be hosted publicly per "
+        "Kaggle's competition data usage policy.\n\n"
+        "To run the full application locally:\n"
+        "1. Download the IEEE-CIS dataset from Kaggle\n"
+        "2. Run `notebooks/02_features.ipynb`\n"
+        "3. Run `streamlit run src/app.py`\n\n"
+        "See README for full instructions."
+    )
+    st.stop() 
 @st.cache_resource
 def build_model(df):
     feature_cols = [c for c in df.columns if c!='isFraud']

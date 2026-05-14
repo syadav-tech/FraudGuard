@@ -124,6 +124,11 @@ fraud-detection/
 
 🔗 [FraudGuard - Live App](https://fraudguard-cbsatymzduhsdugbazz54h.streamlit.app/)
 
+> **Data note:** This app uses a 50,000 transaction sample from the
+> IEEE-CIS Fraud Detection dataset (Kaggle, 2019) for demonstration
+> purposes. Full dataset available at
+> kaggle.com/c/ieee-fraud-detection.
+
 > **Deployment note:** The live app displays static EDA charts
 > and portfolio-level fraud metrics. The Transaction Scorer
 > requires local setup with the full IEEE-CIS dataset from Kaggle
