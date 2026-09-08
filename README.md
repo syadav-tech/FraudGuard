@@ -122,7 +122,7 @@ fraud-detection/
 
 ## Live Dashboard
 
-🔗 [FraudGuard - Live App](https://fraudguard-cbsatymzduhsdugbazz54h.streamlit.app/)
+🔗 [FraudGuard - Live App](https://cbsatymzduhsdugbazz54h.streamlit.app/)
 
 > **Data note:** This app uses a 50,000 transaction sample from the
 > IEEE-CIS Fraud Detection dataset (Kaggle, 2019) for demonstration
